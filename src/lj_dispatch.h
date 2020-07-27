@@ -86,8 +86,9 @@ typedef uint16_t HotCount;
 #define GG_LEN_DISP	(GG_LEN_DDISP + GG_LEN_SDISP)
 
 /* Global state, main thread and extra fields are allocated together. */
-typedef struct GG_State {
+typedef struct GG_State {  
   lua_State L;				/* Main thread. */
+  void *extra_;
   global_State g;			/* Global state. */
 #if LJ_TARGET_MIPS
   ASMFunction got[LJ_GOT__MAX];		/* Global offset table. */
@@ -104,6 +105,7 @@ typedef struct GG_State {
 #define G2GG(gl)	((GG_State *)((char *)(gl) - GG_OFS(g)))
 #define J2GG(j)		((GG_State *)((char *)(j) - GG_OFS(J)))
 #define L2GG(L)		(G2GG(G(L)))
+#define L2EXTRA(L)  (L2GG(L)->extra_)
 #define J2G(J)		(&J2GG(J)->g)
 #define G2J(gl)		(&G2GG(gl)->J)
 #define L2J(L)		(&L2GG(L)->J)

@@ -269,6 +269,15 @@ LUA_API void lua_close(lua_State *L)
   close_state(L);
 }
 
+LUA_API void luaX_setExtra(lua_State *L,void *ptr)
+{
+	L2EXTRA(L) = ptr;
+}
+
+LUA_API void* luaX_getExtra(lua_State *L)
+{
+	return L2EXTRA(L);
+}
 lua_State *lj_state_new(lua_State *L)
 {
   lua_State *L1 = lj_mem_newobj(L, lua_State);
