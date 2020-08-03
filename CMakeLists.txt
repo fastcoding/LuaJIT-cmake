@@ -82,7 +82,8 @@ ELSE (CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL CMAKE_SHARED_MODULE_SUFFIX)
 ENDIF (CMAKE_SHARED_LIBRARY_SUFFIX STREQUAL CMAKE_SHARED_MODULE_SUFFIX)
 
 ## SOURCES
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/luaconf.h src/lua.h src/lauxlib.h src/lualib.h src/lua.hpp src/luajit.h
+##INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/luaconf.h src/lua.h src/lauxlib.h src/lualib.h src/lua.hpp src/luajit.h
+INSTALL(FILES src/luaconf.h src/lua.h src/lauxlib.h src/lualib.h src/lua.hpp src/luajit.h
   DESTINATION "${Lua_INSTALL_INCLUDE_SUBDIR}")
 
 MACRO(LJ_TEST_ARCH stuff)
@@ -255,7 +256,8 @@ add_library ( liblua-shared SHARED ${SRC_LJCORE} ${DEPS} )
 target_link_libraries ( liblua-shared ${LIBS} )
 target_include_directories( liblua-shared INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/src )
 SET_TARGET_PROPERTIES(liblua-shared PROPERTIES 
-  PREFIX "lib" IMPORT_PREFIX "lib" OUTPUT_NAME "lua")
+  # PREFIX "lib" IMPORT_PREFIX "lib" 
+   OUTPUT_NAME "lua")
 if ( WIN32 AND NOT CYGWIN )
   target_compile_definitions ( liblua-shared PRIVATE -DLUA_BUILD_AS_DLL )
 endif ()
